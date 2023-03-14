@@ -6,7 +6,7 @@ module.exports = {
   extends: [
     "plugin:vue/vue3-essential",
     "eslint:recommended",
-    "plugin:prettier/recommended",
+    // "plugin:prettier/recommended",
   ],
   parserOptions: {
     parser: "@babel/eslint-parser",
@@ -21,6 +21,10 @@ module.exports = {
         "**/__tests__/*.{j,t}s?(x)",
         "**/tests/unit/**/*.spec.{j,t}s?(x)",
       ],
+      rules: {
+        "no-extra-semi": "error",
+        "semi": "off"
+      },
       env: {
         mocha: true,
       },
