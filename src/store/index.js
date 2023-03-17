@@ -2,8 +2,8 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    // board: [[],[],[],[],[],[],[]],
-    board: [[1,],[1,],[2,],[2,1,],[2,],[1,],[1,]],
+    board: [[],[],[],[],[],[],[]],
+    // board: [[1,],[1,],[2,],[2,1,],[2,],[1,],[1,]],
     player: 1,
     winner: false,
     messageToPlayers: '',
@@ -42,10 +42,32 @@ export default createStore({
             o.state.winningSquares.push(stringToAdd)  
           }
         }
+
+        if(winnerCheck.diagUpTest) {
+          for (let x = 0; x<4; x++) {
+            const stringToAdd = `${winnerCheck.diagUpTest.startPosition.colIndex + x}-${winnerCheck.diagUpTest.startPosition.sqIndex + x}`
+            o.state.winningSquares.push(stringToAdd)  
+          }
+        }
+
+        if(winnerCheck.vertTest) {
+          for (let x = 0; x<4; x++) {
+            const stringToAdd = `${winnerCheck.vertTest.startPosition.colIndex}-${winnerCheck.vertTest.startPosition.sqIndex + x}`
+            o.state.winningSquares.push(stringToAdd)  
+          }
+        }
+
+        if(winnerCheck.horizTest) {
+          for (let x = 0; x<4; x++) {
+            const stringToAdd = `${winnerCheck.horizTest.startPosition.colIndex + x}-${winnerCheck.horizTest.startPosition.sqIndex}`
+            o.state.winningSquares.push(stringToAdd)  
+          }
+        }
       }
 
       const board = o.state.board;
       const checkForVerticalWinner = (colIndex, sqIndex) => {
+        console.log('ran vert check')
         if (board[colIndex].length < 4 + sqIndex || sqIndex > 2) {
           return false;
         } 
@@ -69,8 +91,8 @@ export default createStore({
         return false
       }
       const checkForHorizontalWinner = (colIndex, sqIndex) => {
+        console.log('ran horiz check')
         if (colIndex > 3) {
-          console.log('false because colIndex > 2')
           return false;
         } 
         let testArray = []
@@ -95,6 +117,7 @@ export default createStore({
       }
 
       const checkForDiagonalUpWinner = (colIndex, sqIndex) => {
+        console.log('ran diag up check')
         if (colIndex > 3) {
           return false
         }
@@ -122,6 +145,7 @@ export default createStore({
       }
 
       const checkForDiagonalDownWinner = (colIndex, sqIndex) => {
+        console.log('ran diag down check')
         if (colIndex > 3 || sqIndex < 3) {
           return false
         }
@@ -177,6 +201,8 @@ export default createStore({
           }
         })
       })  
+      // this currently stops at the first square where we find a win
+      // ideally would like to find all wins
 
       if (winnerCheck) {
         pushWinningSquares(winnerCheck)

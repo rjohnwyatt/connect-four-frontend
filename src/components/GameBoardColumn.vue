@@ -26,7 +26,6 @@ export default {
         if (column.value.length < 6) {
           column.value.push(player.value)
           const winnerTest = await store.dispatch('checkForWinner')
-          console.log('winnerTest', winnerTest)
           store.commit('updateWinner', winnerTest)
           store.commit('alternatePlayer')
         } else {

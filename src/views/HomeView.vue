@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div>Connect four Rough Outline</div>
+    <div>Connect four rough board</div>
     <GameBoard />
   </div>
 </template>

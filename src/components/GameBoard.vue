@@ -1,4 +1,7 @@
 <template>
+  <div>
+    Player {{player}}, you're up
+  </div>
   <template v-for="(column, index) in board" :key="index">
     <div class="board-column">
       <GameBoardColumn :columnNumber="index"/>
@@ -20,10 +23,12 @@ export default {
 
     const board = computed(() => store.state.board) 
     const messageToPlayers = computed(() => store.state.messageToPlayers)
+    const player = computed(() => store.state.player)
 
     return { 
       board,
       messageToPlayers,
+      player,
     }
   },
   components: {
@@ -34,9 +39,11 @@ export default {
 
 <style>
 .board-column {
+  vertical-align: top;
   display: inline-block;
   width: 12%;
   height: 300px;
   background-color: #cff;
+  /* border-style: solid; */
 }
 </style>
